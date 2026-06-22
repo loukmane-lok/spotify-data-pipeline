@@ -1,0 +1,26 @@
+name: 'spotify_dbt'
+version: '1.0.0'
+
+profile: 'spotify_dbt'
+
+# Paths
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Model materialization strategy
+models:
+  spotify_dbt:
+    silver:
+      +materialized: view
+      +tags: ['staging']
+    gold:
+      +materialized: table
+      +tags: ['marts']

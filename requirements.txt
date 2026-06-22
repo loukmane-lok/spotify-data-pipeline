@@ -1,0 +1,7 @@
+kafka-python
+boto3 # official Python SDK for AWS
+snowflake-connector-python
+dbt-core
+dbt-snowflake
+python-dotenv
+faker

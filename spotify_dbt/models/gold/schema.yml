@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: top_songs
+    description: >
+      Gold-layer aggregation of play, skip, and playlist-add counts per song.
+      Includes a computed skip_rate for song quality analysis.
+    columns:
+      - name: song_id
+        description: "Song identifier"
+        data_tests:
+          - unique
+          - not_null
+      - name: total_plays
+        description: "Total number of play events"
+      - name: total_skips
+        description: "Total number of skip events"
+      - name: skip_rate
+        description: "Ratio of skips to plays (NULL if zero plays)"
+
+  - name: user_engagement
+    description: >
+      Gold-layer daily user engagement metrics segmented by device type
+      and country. Powers dashboards and cohort analysis.
+    columns:
+      - name: user_id
+        description: "User identifier"
+        data_tests:
+          - not_null
+      - name: day
+        description: "Date dimension (truncated to day)"
+        data_tests:
+          - not_null
+      - name: total_events
+        description: "Total events for this user/device/country/day"

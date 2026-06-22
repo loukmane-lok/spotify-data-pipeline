@@ -1,0 +1,41 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: "Raw event data ingested from S3 via Airflow"
+    database: SPOTIFY_DB
+    schema: BRONZE
+    tables:
+      - name: RAW_EVENTS
+        description: "Raw Spotify user listening events"
+        columns:
+          - name: event_id
+            description: "Unique identifier for each event (UUID4)"
+            data_tests:
+              - not_null
+          - name: user_id
+            description: "UUID of the user who triggered the event"
+            data_tests:
+              - not_null
+          - name: song_id
+            description: "Deterministic UUID5 for the song (derived from artist::song)"
+            data_tests:
+              - not_null
+          - name: artist_name
+            description: "Name of the song artist"
+          - name: song_name
+            description: "Title of the song"
+          - name: event_type
+            description: "Type of user interaction"
+            data_tests:
+              - accepted_values:
+                  values: ['play', 'pause', 'skip', 'add_to_playlist']
+          - name: device_type
+            description: "Device used for playback"
+            data_tests:
+              - accepted_values:
+                  values: ['mobile', 'desktop', 'web']
+          - name: country
+            description: "ISO country code of the user"
+          - name: timestamp
+            description: "ISO 8601 timestamp of the event"

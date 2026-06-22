@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: clean_data
+    description: >
+      Staging model that cleans and type-casts raw bronze events.
+      Filters out records with NULL identifiers or invalid timestamps.
+      Standardizes casing for event_type, device_type, and country.
+    columns:
+      - name: event_id
+        description: "Unique event identifier"
+        data_tests:
+          - unique
+          - not_null
+      - name: user_id
+        description: "User identifier"
+        data_tests:
+          - not_null
+      - name: song_id
+        description: "Song identifier"
+        data_tests:
+          - not_null
+      - name: event_ts
+        description: "Parsed UTC timestamp of the event"
+        data_tests:
+          - not_null
+      - name: event_type
+        description: "Standardized event type (lowercase)"
+        data_tests:
+          - accepted_values:
+              values: ['play', 'pause', 'skip', 'add_to_playlist']
