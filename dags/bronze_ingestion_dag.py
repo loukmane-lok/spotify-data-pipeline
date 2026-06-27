@@ -18,10 +18,10 @@ import os
 from datetime import datetime, timedelta
 from typing import Any
 
-from airflow import DAG
-from airflow.operators.python import PythonOperator
 import boto3
 import snowflake.connector
+from airflow import DAG
+from airflow.operators.python import PythonOperator
 
 logger = logging.getLogger(__name__)
 
@@ -125,7 +125,7 @@ def load_raw_to_snowflake(**context: Any) -> None:
     """
     file_path: str = context["ti"].xcom_pull(task_ids="extract_data")
 
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(file_path, encoding="utf-8") as f:
         events: list[dict] = json.load(f)
 
     if not events:
