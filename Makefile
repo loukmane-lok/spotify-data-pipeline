@@ -31,7 +31,7 @@ typecheck: ## Run type checker (mypy)
 test: ## Run test suite
 	pytest tests/ -v --tb=short
 
-test-cov: ## Run tests with coverage report
+test-cov: ## Run tests with coverage report, measure how much of the code is executed during the tests
 	pytest tests/ -v --cov=src --cov-report=term-missing
 
 # ── Infrastructure ───────────────────────────────────────────
