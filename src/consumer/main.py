@@ -86,9 +86,7 @@ def ensure_bucket_exists(s3_client: boto3.client, bucket_name: str, region: str)
             logger.info("Bucket '%s' not found — creating...", bucket_name)
             create_params: dict = {"Bucket": bucket_name}
             if region != "us-east-1":
-                create_params["CreateBucketConfiguration"] = {
-                    "LocationConstraint": region
-                }
+                create_params["CreateBucketConfiguration"] = {"LocationConstraint": region}
             s3_client.create_bucket(**create_params)
             logger.info("Bucket '%s' created in %s.", bucket_name, region)
         else:
@@ -163,9 +161,7 @@ def run() -> None:
             consumer_timeout_ms=1000,  # Allows periodic shutdown checks
         )
     except KafkaError:
-        logger.exception(
-            "Failed to connect to Kafka at %s", kafka_cfg.bootstrap_servers
-        )
+        logger.exception("Failed to connect to Kafka at %s", kafka_cfg.bootstrap_servers)
         sys.exit(1)
 
     logger.info(
